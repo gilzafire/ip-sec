@@ -1,32 +1,23 @@
 version: '3.8'
 
 services:
-  webserver:
-    build: .
-    ports:
-      - "8000:8000"
-    depends_on:
-      - ipsecvpn
-    networks:
-      vpn_net:
-        ipv4_address: 192.168.1.10
-
-  ipsecvpn:
-    image: hwdsl2/ipsec-vpn-server
-    environment:
-      - VPN_IPSEC_PSK=1234
-      - VPN_USER=test
-      - VPN_PASSWORD=test
+  strongswan:
+    build: ./strongswan
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
-    ports:
-      - "5001:500/udp"
-      - "4501:4500/udp"
-      - "1701:1701/udp"
     networks:
       vpn_net:
-        ipv4_address: 192.168.1.20  
+        ipv4_address: 192.168.1.10  # StrongSwan container IP
+    restart: always
+
+  webserver:
+    build: ./webserver
+    networks:
+      vpn_net:
+        ipv4_address: 192.168.1.20  # Web server container IP
+    ports:
+      - "5000:5000"  # Expose the web server port
+    restart: always
 
 networks:
   vpn_net:
