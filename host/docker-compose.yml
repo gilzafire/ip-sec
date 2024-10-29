@@ -4,18 +4,26 @@ services:
       context: ./vpnserver
     networks:
       vpn_network:
-        ipv4_address: 10.0.0.1
+        ipv4_address: 10.0.1.1     # VPN server internal IP
+      servers_network:
+        ipv4_address: 192.168.1.10   # Additional IP in the internal network
 
   webserver:
     build:
       context: ./webserver
     networks:
-      vpn_network:
-        ipv4_address: 192.168.1.20
+      servers_network:
+        ipv4_address: 192.168.1.20   # Web server internal IP
 
 networks:
   vpn_network:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.0.0.0/24
+        - subnet: 10.0.1.0/24         # Subnet for VPN connections
+
+  servers_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24      # Subnet for internal servers
