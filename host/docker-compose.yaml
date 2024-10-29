@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  webserver:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ipsecvpn
+    networks:
+      - frontend
+      - vpn_net
+
+  ipsecvpn:
+    image: hwdsl2/ipsec-vpn-server
+    environment:
+      - VPN_IPSEC_PSK=1234
+      - VPN_USER=test
+      - VPN_PASSWORD=test
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    ports:
+      - "500:500/udp"
+      - "4500:4500/udp"
+    networks:
+      - vpn_net
+
+networks:
+  frontend:
+    driver: bridge
+  vpn_net:
+    driver: bridge
