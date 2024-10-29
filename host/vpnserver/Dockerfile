@@ -2,7 +2,7 @@ FROM debian:bookworm
 
 # Install StrongSwan and Nginx
 RUN apt-get update && \
-    apt-get install -y strongswan nginx && \
+    apt-get install -y strongswan nginx iputils-ping && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy StrongSwan configuration files
