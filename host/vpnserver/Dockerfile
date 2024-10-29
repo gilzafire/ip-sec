@@ -13,7 +13,7 @@ COPY ipsec.secrets /etc/strongswan/ipsec.secrets
 COPY nginx.conf /etc/nginx/sites-available/default
 
 # Expose ports
-EXPOSE 80 500 4500
+EXPOSE 80 501 4501
 
 # Start both Nginx and StrongSwan
 CMD service nginx start && ipsec start --nofork
