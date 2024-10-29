@@ -1,0 +1,14 @@
+services:
+  client:
+    build:
+      context: .
+    networks:
+      vpn_network:
+        ipv4_address: 10.0.0.2
+
+networks:
+  vpn_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24

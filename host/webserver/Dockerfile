@@ -1,16 +1,13 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
-# Set working directory
+RUN apt-get update && \
+    apt-get install -y strongswan && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy application code
 COPY app.py .
 
-# Install Flask
-RUN pip install Flask
+RUN pip install flask
 
-# Expose the web server port
-EXPOSE 5000
-
-# Run the application
 CMD ["python", "app.py"]

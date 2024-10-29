@@ -1,27 +1,21 @@
-version: '3.8'
-
 services:
-  strongswan:
-    build: ./strongswan
-    cap_add:
-      - NET_ADMIN
+  vpnserver:
+    build:
+      context: ./vpnserver
     networks:
-      vpn_net:
-        ipv4_address: 192.168.1.10  # StrongSwan container IP
-    restart: always
+      vpn_network:
+        ipv4_address: 10.0.0.1
 
   webserver:
-    build: ./webserver
+    build:
+      context: ./webserver
     networks:
-      vpn_net:
-        ipv4_address: 192.168.1.20  # Web server container IP
-    ports:
-      - "5000:5000"  # Expose the web server port
-    restart: always
+      vpn_network:
+        ipv4_address: 192.168.1.20
 
 networks:
-  vpn_net:
+  vpn_network:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.1.0/24
+        - subnet: 10.0.0.0/24
