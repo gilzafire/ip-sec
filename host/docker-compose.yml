@@ -18,9 +18,8 @@ services:
         ipv4_address: 192.168.1.20   # Web server internal IP
 
   nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    build:
+      context: ./nginx              # Use the Dockerfile in the nginx folder
     ports:
       - "80:80"  # Expose port 80 for Nginx
     networks:
