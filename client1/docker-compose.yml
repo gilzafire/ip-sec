@@ -7,7 +7,7 @@ services:
       - SYS_MODULE  # Allow loading kernel modules
     networks:
       vpn_network:
-        ipv4_address: 10.0.2.3/24
+        ipv4_address: 10.0.2.3
 
 networks:
   vpn_network:
