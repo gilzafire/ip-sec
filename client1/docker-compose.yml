@@ -10,7 +10,7 @@ services:
         ipv4_address: 10.0.2.3/24
 
 networks:
-  vpn-network:
+  vpn_network:
     driver: overlay
     external: true
     attachable: true
