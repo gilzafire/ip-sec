@@ -7,16 +7,14 @@ services:
       - SYS_MODULE  # Allow loading kernel modules
     networks:
       vpn_network:
-        ipv4_address: 10.0.1.2     # VPN server internal IP
       servers_network:
-        ipv4_address: 192.168.1.10   # Additional IP in the internal network
 
   webserver:
     build:
       context: ./webserver
     networks:
       servers_network:
-        ipv4_address: 192.168.1.20   # Web server internal IP
+
 
 networks:
   vpn_network:
