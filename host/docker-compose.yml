@@ -7,22 +7,25 @@ services:
       - SYS_MODULE  # Allow loading kernel modules
     networks:
       vpn_network:
+        ipv4_address: 10.0.2.2     # VPN server internal IP
       servers_network:
-              ipv4_address: 192.168.1.20   # VPN internal IP
+        ipv4_address: 192.168.1.10   # Additional IP in the internal network
 
   webserver:
     build:
       context: ./webserver
     networks:
       servers_network:
-
+        ipv4_address: 192.168.1.20   # Web server internal IP
 
 networks:
   vpn_network:
-    driver: bridge
+    external: true
+    driver: overlay         
+    attachable: true
     ipam:
       config:
-        - subnet: 10.0.1.0/24         # Subnet for VPN connections
+        - subnet: 10.0.2.0/24
 
   servers_network:
     driver: bridge

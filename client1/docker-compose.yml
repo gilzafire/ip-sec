@@ -7,10 +7,13 @@ services:
       - SYS_MODULE  # Allow loading kernel modules
     networks:
       vpn_network:
+        ipv4_address: 10.0.2.3/24
 
 networks:
-  vpn_network:
-    driver: bridge
+  vpn-network:
+    driver: overlay
+    external: true
+    attachable: true
     ipam:
       config:
         - subnet: 10.0.2.0/24
